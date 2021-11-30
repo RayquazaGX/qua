@@ -4,7 +4,7 @@
 
 一款包管理器，帮助开发者在编写[Lua](www.lua.org)脚本时以**纯Lua脚本包**为单位管理依赖。
 
-A package manager for [Lua](www.lua.org) programming language, that helps developers managing **pure Lua packages** as dependecies.
+A package manager for [Lua](www.lua.org) programming language, that helps developers to manage **pure Lua packages** as dependecies.
 
 ## 功能与特点 | Features ##
 
