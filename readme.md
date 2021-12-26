@@ -2,42 +2,57 @@
 
 !!! 正在开发中 | Work In Progress
 
-一款包管理器，帮助开发者在编写[Lua](www.lua.org)脚本时以**纯Lua脚本包**为单位管理依赖。
+一款包管理器，使用[Lua](www.lua.org)语言管理即下即用的资源包，如纯Lua脚本库或游戏资源包等无需额外编译步骤的资源。
 
-A package manager for [Lua](www.lua.org) programming language, that helps developers to manage **pure Lua packages** as dependecies.
+A package manager that manages out-of-the-box resource packages using [Lua](www.lua.org) programming language, eg. pure Lua script packages, game asset packages, etc. that do not require extra build steps.
 
-## 功能与特点 | Features ##
+## 特点 | Features ##
 
-- <u>仅支持纯Lua脚本包</u>
-    - 虽然更严格，但不用再为等待编译和跨平台适配苦恼
-    - 虽然包内容是纯Lua，但可以在包描述中指定使用哪些来自底层语言的支持库，并期望宿主程序为其提供这些库
-- <u>编写Lua脚本过程中，通过CLI，可以操作并下载工程依赖</u>
-    - 在项目工程中编辑`package.quaspec`说明项目包信息和依赖信息，生成版本锁定文件`lock.quaspec`，并以此下载所需的依赖项到本地
-    - 默认使用一个中央源仓库作为包的来源，也可以自行指定其他git仓库作为源仓库
-    - 按名称、概述、说明或标签搜索想要的包
-    - 安装新的依赖项、卸载或升级已记录的依赖项
-- <u>工程运行时，通过纯Lua编写的运行时库，读取已准备好的依赖项各个包</u>
-    - 原理是生成一个自定义搜索函数以扩展Lua自带`require`的功能
-    - 可以选择在要导入的包脚本的描述不符合宿主程序时抛出错误
-    - 除了从本地文件系统读取，可以自行传入自定义IO方法，指定读取依赖项的方式；便于实现从压缩文件中读取包等等
-- *进阶用法*：<u>构建自定义的工具时，使用纯Lua编写的后端库，为工具增加包管理器功能</u>
-    - 读写配置文件
-    - 按照配置文件计算版本锁定或下载依赖
-- <u>Only supports pure Lua packages</u>
-    - Limited, but it clears away troubles, eg. waiting for compiling downloaded components, or caring about cross-platform issues
-    - While the scripts need to be in pure Lua, you may write down in the package spec your need of lower-level libraries, demanding that the host executable should provide them
-- <u>During development of your Lua script project, you can manage the dependencies with the provided CLI</u>
-    - Edit `package.quaspec` to hold the project info and its dependencies, generate `lock.quaspec` which locks the actual versions of dependencies, and download the versioned packages accordingly
-    - Apart from the centralized repository, you may manually set other git repos as the package source
-    - Search the packages with patterns on name/summary/description/tags
-    - Install new dependencies, or remove/upgrade installed dependencies
-- <u>During project runtime, you can import the downloaded packages with the provided runtime library written in pure Lua</u>
-    - The idea is just to generate a custom loader function, to extend the functionality of the Lua `require`
-    - You decide whether to throw an error if the spec of a package being imported does not match up to the host executable
-    - Apart from importing from the filesystem, you may use customized IO; this can be useful for cases like loading packages from zipped archives
-- *Advanced usage*: <u>When making new tools, you can add to it the ability of managing packages, with the provided backend library written in pure Lua</u>
-    - Save/load spec files
-    - Calculate the version locks and download the dependency packages
+- __依赖树结构__
+    - 每个包可以设置接口文件以允许其他包依赖
+    - 每个包可以依赖其他包中的接口文件
+- __中心化或自定义的包仓库__
+    - 手动将网络上的资源制作成包注册项，提交到仓库中供他人搜索
+    - 通过CLI从指定仓库（默认是中心仓库）搜索包，并下载到本地以供使用
+- __Dependency tree__
+    - Each package can specify interface files as *provisions*
+    - Each package can rely on interface files from other packages as *dependencies*
+- __Centralized or customized registry__
+    - Manually make a package version spec from a public resource, and submit it to a registry to make it available for anyone accessing the registry
+    - Using the CLI, search the desired packages from a registry (the centralized one as the default), and download it to a local storage for further use
+
+## 构成 | Structure ##
+
+- __命令行界面（CLI）__
+    - 用于便捷管理当前Lua工程所用包
+    - 设置远程仓库
+    - 按名称、概述、说明或标签搜索包
+    - 安装、卸载或升级包
+- __运行时库__
+    - 纯Lua编写
+    - 供脚本包或宿主环境使用
+    - 控制包间依赖而不污染全局`package.loaded`
+    - 读取包下数据
+- __包管理器库__
+    - 为自定义工具增加包管理功能
+    - ~~扫描项目，将所需依赖项列出为`manifest.quaspec`清单文件~~（尚未实现，当前需要手动编辑）
+    - 将清单文件根据各包要求版本区间锁定依赖项版本为`lock.quaspec`锁定文件
+    - 根据锁定文件从远程仓库下载所需的依赖项到本地
+- __Command Line Interface(CLI)__
+    - Can be used for managing dependency packages of the current working Lua project
+    - Set from which remote registry to download packages
+    - Search packages by name, summary, description or tag
+    - Add, remove and upgrade dependency packages
+- __Runtime Library__
+    - Written in pure Lua
+    - Can be used by a script package or the host environment
+    - Import other packages without polluting global `package.loaded`
+    - Load files inside the current package
+- __Package Manager Library__
+    - Can be used by tools to gain the ability of managing packages
+    - ~~Scan the dependencies from the source project to a manifest file `manifest.quaspec`~~ (Not yet impemented, require manual editing by now)
+    - Lock the demanded actual version of each dependency, by calculating from the ranges given by each package, and write these versions to the lock file `lock.quaspec`
+    - Download according to a remote registry the locked versions of dependencies to a local storage
 
 ## 使用范例 | Usage Examples ##
 
