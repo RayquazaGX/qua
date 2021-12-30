@@ -1,0 +1,31 @@
+{
+    quaspec = "0.1.0",
+    project = {
+        dependencies = {
+            package1 = {"package1", "someauthor/package1", "1.0.0"},
+        },
+    },
+    packages = {
+        {
+            name = "package1",
+            fork = "someauthor/package1",
+            version = "1.0.0",
+            dependencies = {
+                package2 = {"package2", "someauthor/package2", "1.2.3"},
+                package2plaintext = {"package2", "someauthor/package2", "1.2.3", "plaintext"},
+            },
+            provisions = {
+            },
+        },
+        {
+            name = "package2",
+            fork = "someauthor/package2",
+            version = "1.2.3",
+            dependencies = {},
+            provisions = {
+                default = "package",
+                plaintext = "./plaintext.txt"
+            }
+        },
+    },
+}

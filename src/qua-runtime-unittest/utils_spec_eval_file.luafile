@@ -1,0 +1,29 @@
+local solarterms = {
+    spring = {
+        "Lichun", "Yushui",
+        "Jingzhe", "Chunfen",
+        "Qingming", "Guyu",
+    },
+    summer = {
+        "Lixia", "Xiaoman",
+        "Mangzhong", "Xiazhi",
+        "Xiaoshu", "Dashu",
+    },
+    autumn = {
+        "Liqiu", "Chushu",
+        "Bailu", "Qiufen",
+        "Hanlu", "Shuangjiang",
+    },
+    winter = {
+        "Lidong", "Xiaoxue",
+        "Daxue", "Dongzhi",
+        "Xiaohan", "Dahan"
+    },
+}
+
+local total = 0
+for kSeason, vTerms in pairs(solarterms) do
+    total = total + #vTerms
+end
+
+return total -- Should be 24
