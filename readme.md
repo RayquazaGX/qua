@@ -4,7 +4,7 @@ This repository is a work in progress. Some of the features are missing and majo
 
 Roadmap:
 
-- [ ] qua-runtime
+- [x] qua-runtime
 - [ ] qua-package-manager
     - [ ] scan project and write manifest
     - [ ] resolve manifests to lock
@@ -68,10 +68,14 @@ A package manager that uses [Lua](www.lua.org) programming language to manage ou
 ## 使用范例 | Usage Examples ##
 
 !!! TODO
+!!! 可以先看看单元测试里的用例：`src/qua-runtime-unittest`
+!!! Currently, you can check the use cases in the unit tests under `src/qua-runtime-unittest`
 
 ## 安装 | Installation ##
 
 !!! TODO
+!!! `src/qua-runtime`可以直接复制过来用。之后等CLI写好也许会有通过CLI操作的方法。
+!!! Copy the `src/qua-runtime` folder for use. Would be smoother using CLI when CLI is complete later.
 
 ## 详情 | Details ##
 
