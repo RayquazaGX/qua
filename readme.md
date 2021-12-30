@@ -1,10 +1,21 @@
-# 廓 | Qua #
+# !!! 正在开发中 | Work In Progress
 
-!!! 正在开发中 | Work In Progress
+This repository is a work in progress. Some of the features are missing and major changes can happen.
+
+Roadmap:
+
+- [ ] qua-runtime
+- [ ] qua-package-manager
+    - [ ] scan project and write manifest
+    - [ ] resolve manifests to lock
+    - [ ] download packages according to lock
+- [ ] qua-cli
+
+# 廓 | Qua #
 
 一款包管理器，使用[Lua](www.lua.org)语言管理即下即用的资源包，如纯Lua脚本库或游戏资源包等无需额外编译步骤的资源。
 
-A package manager that manages out-of-the-box resource packages using [Lua](www.lua.org) programming language, eg. pure Lua script packages, game asset packages, etc. that do not require extra build steps.
+A package manager that uses [Lua](www.lua.org) programming language to manage out-of-the-box resource packages , eg. pure Lua script packages, game asset packages, etc. that do not require extra build steps.
 
 ## 特点 | Features ##
 
@@ -35,7 +46,7 @@ A package manager that manages out-of-the-box resource packages using [Lua](www.
     - 读取包下数据
 - __包管理器库__
     - 为自定义工具增加包管理功能
-    - ~~扫描项目，将所需依赖项列出为`manifest.quaspec`清单文件~~（尚未实现，当前需要手动编辑）
+    - 扫描项目，将所需依赖项列出为`manifest.quaspec`清单文件
     - 将清单文件根据各包要求版本区间锁定依赖项版本为`lock.quaspec`锁定文件
     - 根据锁定文件从远程仓库下载所需的依赖项到本地
 - __Command Line Interface(CLI)__
@@ -50,7 +61,7 @@ A package manager that manages out-of-the-box resource packages using [Lua](www.
     - Load files inside the current package
 - __Package Manager Library__
     - Can be used by tools to gain the ability of managing packages
-    - ~~Scan the dependencies from the source project to a manifest file `manifest.quaspec`~~ (Not yet impemented, require manual editing by now)
+    - Sniff the dependencies from the source project and list them in a manifest file `manifest.quaspec`
     - Lock the demanded actual version of each dependency, by calculating from the ranges given by each package, and write these versions to the lock file `lock.quaspec`
     - Download according to a remote registry the locked versions of dependencies to a local storage
 
@@ -64,7 +75,8 @@ A package manager that manages out-of-the-box resource packages using [Lua](www.
 
 ## 详情 | Details ##
 
-< [中文文档](readme-zh.md) | English Documentation >
+!!! TODO
+< 中文文档 | English Documentation >
 
 ## 开源协议 | License ##
 
